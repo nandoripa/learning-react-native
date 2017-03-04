@@ -8,16 +8,13 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
-  Image,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Ionicons'
-
-import ArtistBox from './artistBox'
+import ArtistList from './artistList'
 
 export default class PlatziMusic extends Component {
+
   render() {
 
     const artist = {
@@ -25,11 +22,12 @@ export default class PlatziMusic extends Component {
       name: 'David Bowie',
       likes: 200,
       comments: 140
-    }
+    };
+    const artists = Array(10).fill(artist);
 
     return (
       <View style={styles.container}>
-        <ArtistBox artist={artist}/>
+        <ArtistList artists={artists}/>
       </View>
     );
   }
