@@ -7,41 +7,27 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  View,
+  Platform
 } from 'react-native';
+import {Scene, Router} from 'react-native-router-flux';
 
-import ArtistList from './artistList'
-import {getArtists} from './apiClient'
+import HomeView from './views/homeView';
+import ArtistDetailView from './views/artistDetailView';
 
 export default class PlatziMusic extends Component {
 
-  state = {
-    artists: []
-  }
-
-  componentDidMount() {
-    getArtists().then(data => this.setState({artists: data}));
-  }
-
   render() {
+    const isAndroid = Platform.os === 'Android';
 
-    const artists = this.state.artists;
-    
     return (
-      <View style={styles.container}>
-        <ArtistList artists={artists}/>
-      </View>
-    );
+      <Router>
+        <Scene key="root">
+          <Scene key="home" component={HomeView} title="PlatziMusic" hideNavBar={isAndroid}/>
+          <Scene key="artistDetail" component={ArtistDetailView} backTitle="PlatziMusic" getTitle={this.props.title} />
+        </Scene>
+      </Router>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightgray',
-    paddingTop: 20,
-  }
-});
 
 AppRegistry.registerComponent('PlatziMusic', () => PlatziMusic);
