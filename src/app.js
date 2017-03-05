@@ -12,19 +12,22 @@ import {
 } from 'react-native';
 
 import ArtistList from './artistList'
+import {getArtists} from './apiClient'
 
 export default class PlatziMusic extends Component {
 
+  state = {
+    artists: []
+  }
+
+  componentDidMount() {
+    getArtists().then(data => this.setState({artists: data}));
+  }
+
   render() {
 
-    const artist = {
-      image: 'https://lastfm-img2.akamaized.net/i/u/300x300/31a51f6e3ec647c8997150ec837891c7.png',
-      name: 'David Bowie',
-      likes: 200,
-      comments: 140
-    };
-    const artists = Array(10).fill(artist);
-
+    const artists = this.state.artists;
+    
     return (
       <View style={styles.container}>
         <ArtistList artists={artists}/>
