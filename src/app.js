@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Scene, Router} from 'react-native-router-flux';
 
+import LoginView from './views/loginView';
 import HomeView from './views/homeView';
 import ArtistDetailView from './views/artistDetailView';
 
@@ -21,6 +22,7 @@ export default class PlatziMusic extends Component {
 
     return (
       <Router>
+        <Scene key="login" component={LoginView} hideNavBar/>
         <Scene key="root">
           <Scene key="home" component={HomeView} title="PlatziMusic" hideNavBar={isAndroid}/>
           <Scene key="artistDetail" component={ArtistDetailView} backTitle="PlatziMusic" getTitle={this.props.title} />
