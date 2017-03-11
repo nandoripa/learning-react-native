@@ -6,6 +6,8 @@
 
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
+  Platform,
   StyleSheet,
   View,
 } from 'react-native';
@@ -16,7 +18,7 @@ import {getArtists} from '../apiClient'
 export default class HomeView extends Component {
 
   state = {
-    artists: []
+    artists: null
   }
 
   componentDidMount() {
@@ -29,7 +31,8 @@ export default class HomeView extends Component {
 
     return (
       <View style={styles.container}>
-        <ArtistList artists={artists}/>
+        {artists && <ArtistList artists={artists}/>}
+        {!artists && <ActivityIndicator size="large"/>}
       </View>
     );
   }
@@ -39,6 +42,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightgray',
-    paddingTop: 70,
+    paddingTop: Platform.select({
+      ios: 70,
+      android:60
+    }),
   }
 });

@@ -21,7 +21,8 @@ export default class ArtistBox extends Component {
 
   state = {
     liked: false,
-    likeCount: 0
+    likeCount: 0,
+    commentCount: 0
   }
 
   componentWillMount() {
@@ -31,8 +32,9 @@ export default class ArtistBox extends Component {
       const artist = snapshot.val();
       if(artist) {
         this.setState({
-          likeCount: artist.likeCount,
-          liked: artist.likes && artist.likes[uid]
+          likeCount: artist.likeCount ? artist.likeCount : 0,
+          liked: artist.likes && artist.likes[uid],
+          commentCount: artist.commentCount
         })
       }
     })
@@ -64,6 +66,7 @@ export default class ArtistBox extends Component {
       }
       return artist || {
         likeCount: 1,
+        commentCount: 0,
         likes: {
           [uid]: true
         }
@@ -77,7 +80,7 @@ export default class ArtistBox extends Component {
       <Icon name="ios-heart" size={30} color="#e74c3c" /> :
       <Icon name="ios-heart-outline" size={30} color="gray" />
 
-    const { likeCount } = this.state;
+    const { likeCount, commentCount } = this.state;
 
     return (
       <View style={styles.artistBox}>
@@ -93,7 +96,7 @@ export default class ArtistBox extends Component {
             </View>
             <View style={styles.iconContainer}>
               <Icon name="ios-chatboxes-outline" size={30} color="gray" />
-              <Text style={styles.count}>{comments}</Text>
+              <Text style={styles.count}>{commentCount}</Text>
             </View>
           </View>
         </View>

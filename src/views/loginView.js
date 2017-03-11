@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  Image,
   StyleSheet,
   View,
   Text
@@ -57,13 +58,14 @@ export default class LoginView extends Component {
   render() {
 
     return (
-      <View style={styles.container}>
+      <Image style={styles.container} source={require('../../resources/background.jpg')}>
         <Text style={styles.welcome}>Bienvenidos a PlatziMusic</Text>
+        <Image style={styles.logo} source={require('../../resources/logo.png')} />
         <LoginButton
           readPermissions={['public_profile','email']}
           onLoginFinished={this.handleLoginFinished}
           onLogoutFinished={() => alert("logout.")}/>
-      </View>
+      </Image>
     );
   }
 }
@@ -71,12 +73,21 @@ export default class LoginView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: null,
+    height: null,
     backgroundColor: 'lightgray',
     paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'center'
   },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 15,
+  },
   welcome: {
+    backgroundColor: 'transparent',
+    color: 'white',
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 20

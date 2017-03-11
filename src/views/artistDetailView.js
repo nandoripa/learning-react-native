@@ -51,11 +51,23 @@ export default class ArtistDetailView extends Component {
       userPhoto: photoURL
     });
     this.setState({ text:'' })
+    this.updateCommentCount()
+  }
+
+  updateCommentCount = () => {
+    this.getArtistRef().transaction(function(commentCount) {
+      return (commentCount || 0) + 1;
+    });
   }
 
   getArtistCommentsRef = () => {
     const { id } = this.props.artist
     return firebaseDatabase.ref(`comments/${id}`)
+  }
+
+  getArtistRef = () => {
+    const {id} = this.props.artist;
+    return firebaseDatabase.ref(`artist/${id}/commentCount`);
   }
 
   handleChangeText = (text) => this.setState({text})
