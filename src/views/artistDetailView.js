@@ -48,7 +48,8 @@ export default class ArtistDetailView extends Component {
     var newCommentRef = artistCommentsRef.push()
     newCommentRef.set({
       text,
-      userPhoto: photoURL
+      userPhoto: photoURL,
+      date: Date.now()
     });
     this.setState({ text:'' })
     this.updateCommentCount()
@@ -88,6 +89,7 @@ export default class ArtistDetailView extends Component {
             value={this.state.text}
             placeholder="Opina sobre este artista"
             onChangeText={this.handleChangeText}
+            onSubmitEditing={this.handleSend}
           />
           <TouchableOpacity onPress={this.handleSend}>
             <Icon name="ios-send-outline" size={30} color="gray" />

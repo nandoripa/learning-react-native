@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  Share,
   StyleSheet,
   Text,
   View,
@@ -74,6 +75,24 @@ export default class ArtistBox extends Component {
     });
   }
 
+  shareArtist = () => {
+
+    const { name, url } = this.props.artist
+
+    Share.share({
+      message: `Escucha a ${name}`,
+      url: url,
+      title: {name}
+    }, {
+      dialogTitle: {name},
+      excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter'
+      ],
+      tintColor: 'green'
+    })
+    .catch((error) => console.log(error.message));
+  }
+
   render() {
     const { image, name, comments } = this.props.artist
     const likeIcon = this.state.liked ?
@@ -86,6 +105,9 @@ export default class ArtistBox extends Component {
       <View style={styles.artistBox}>
         <Image style={styles.image} source={{ uri: image }} />
         <View style={styles.info}>
+          <TouchableOpacity style={styles.share} onPress={this.shareArtist}>
+            <Icon name="ios-share-outline" size={30} color="gray" />
+          </TouchableOpacity>
           <Text style={styles.name}>{name}</Text>
           <View style={styles.row}>
             <View style={styles.iconContainer}>
@@ -127,6 +149,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  share: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
   },
   name: {
     fontSize: 20,

@@ -7,6 +7,7 @@ function getArtists() {
     .then(artists => artists.map(artist => {
       return {
         id: artist.mbid,
+        url: artist.url,
         name: artist.name,
         image: artist.image[3]['#text'],
         likes: 200,
